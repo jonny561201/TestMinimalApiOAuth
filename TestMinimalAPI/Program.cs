@@ -10,7 +10,7 @@ builder.Services.ConfigureAuth(settings);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (settings.Environment == "dev" || settings.Environment == "local")
 {
     app.UseSwagger();
     app.UseSwaggerUI();
