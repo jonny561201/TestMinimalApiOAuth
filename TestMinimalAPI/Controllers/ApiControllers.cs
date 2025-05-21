@@ -1,4 +1,5 @@
 using System.Net;
+using TestMinimalAPI.Config;
 using TestMinimalAPI.Test.Services;
 
 namespace TestMinimalAPI.Controllers;
@@ -17,7 +18,7 @@ public static class WebApplicationExtensions
             .WithName("Get Test by Id")
             .WithDescription("Getting a test by the test id")
             .WithOpenApi()
-            .RequireAuthorization("TestUser")
+            .RequireAuthorization(AuthPolicies.TestUser)
             .Produces((int)HttpStatusCode.OK);
 
         application.MapGet("/test/di", (ITestService service) =>

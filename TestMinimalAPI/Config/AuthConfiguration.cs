@@ -17,7 +17,7 @@ public static class ServiceCollectionExtensions
             opt.TokenValidationParameters = tokenParams;
         });
         
-        collection.AddAuthorization(opt => opt.AddPolicy("TestUser", policy => policy.RequireClaim("https://testminimalapi.example.com/roles", "Test")));
+        collection.AddAuthorization(opt => opt.AddPolicy(AuthPolicies.TestUser, policy => policy.RequireClaim(AuthClaims.Roles, "Test")));
         
         return collection;
     }
