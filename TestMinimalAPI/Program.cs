@@ -16,7 +16,8 @@ if (settings.Environment == "dev" || settings.Environment == "local")
     app.UseSwaggerUI();
 }
 
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseHttpsRedirection();
 app.RegisterEndpoints();
 
