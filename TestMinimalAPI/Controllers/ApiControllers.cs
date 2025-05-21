@@ -1,0 +1,35 @@
+using System.Net;
+using TestMinimalAPI.Test.Services;
+
+namespace TestMinimalAPI.Controllers;
+
+public static class WebApplicationExtensions
+{
+    public static WebApplication RegisterEndpoints(this WebApplication application)
+    {
+        application.MapGet("/test", () => Results.Created())
+            .WithName("Get Test")
+            .WithDescription("This is kinda silly")
+            .WithOpenApi()
+            .Produces((int)HttpStatusCode.Created);
+
+        application.MapGet("/test/{id:int}", (int id) => Results.Ok(id))
+            .WithName("Get Test by Id")
+            .WithDescription("Getting a test by the test id")
+            .WithOpenApi()
+            .RequireAuthorization("TestUser")
+            .Produces((int)HttpStatusCode.OK);
+
+        application.MapGet("/test/di", (ITestService service) =>
+            {
+                var message = service.GetResponseText();
+                return Results.Ok(message);
+            })
+            .WithName("Get with DI")
+            .WithDescription("Get But with Dependency Injection")
+            .WithOpenApi()
+            .Produces((int)HttpStatusCode.OK);
+        
+        return application;
+    }
+}
