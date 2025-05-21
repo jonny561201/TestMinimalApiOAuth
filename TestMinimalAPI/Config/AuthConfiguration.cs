@@ -10,12 +10,11 @@ public static class ServiceCollectionExtensions
     {
         collection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
         {
+            var tokenParams = new TokenValidationParameters { NameClaimType = ClaimTypes.NameIdentifier };
+            
             opt.Authority = $"https://{settings.OAuth.Domain}/";
             opt.Audience = settings.OAuth.Audience;
-            opt.TokenValidationParameters = new TokenValidationParameters
-            {
-                NameClaimType = ClaimTypes.NameIdentifier
-            };
+            opt.TokenValidationParameters = tokenParams;
         });
         
         collection.AddAuthorization(opt => opt.AddPolicy("TestUser", policy => policy.RequireClaim("https://testminimalapi.example.com/roles", "Test")));
