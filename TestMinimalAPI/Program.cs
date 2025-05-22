@@ -1,6 +1,7 @@
 using TestMinimalAPI.Config;
 using TestMinimalAPI.Controllers;
-using TestMinimalAPI.Test.Services;
+using TestMinimalAPI.Middleware;
+using TestMinimalAPI.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var settings = builder.Configuration.Get<AppSettings>();
@@ -18,6 +19,7 @@ if (settings.Environment is "dev" or "local")
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<GlobalExceptionHandler>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
