@@ -23,9 +23,13 @@ public class GlobalExceptionHandler
             
             switch (error)
             {
-                case BadHttpRequestException:
+                case BadHttpRequestException e:
                     context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                     message = error.Message;
+                    break;
+                case HttpRequestException e:
+                    context.Response.StatusCode = (int)e.StatusCode;
+                    message = e.Message;
                     break;
             }
 
