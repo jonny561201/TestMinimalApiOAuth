@@ -56,6 +56,17 @@ public class GlobalExceptionHandlerTests
     }
 
     [Fact]
+    public async Task Invoke_ShouldReturnDefaultBadRequestIfHttpeRequestExceptionDoesNotIncludeStatusCode()
+    {
+        RequestDelegate request = (HttpContext _) => throw new HttpRequestException("Exception Message", null);
+        var handler = new GlobalExceptionHandler(request);
+
+        await handler.Invoke(_context);
+
+        Assert.Equal((int)HttpStatusCode.BadRequest, _context.Response.StatusCode);
+    }
+
+    [Fact]
     public async Task Invoke_ShouldReturnInternalServerErrorByDefault()
     {
         var message = "Internal Error!";

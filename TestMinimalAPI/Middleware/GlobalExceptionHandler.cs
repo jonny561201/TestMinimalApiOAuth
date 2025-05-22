@@ -19,7 +19,7 @@ public class GlobalExceptionHandler
         }
         catch (Exception error)
         {
-            var message = "";
+            string message;
             
             switch (error)
             {
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler
                     message = error.Message;
                     break;
                 case HttpRequestException e:
-                    context.Response.StatusCode = (int)e.StatusCode;
+                    context.Response.StatusCode = (int)(e.StatusCode ?? HttpStatusCode.BadRequest);
                     message = e.Message;
                     break;
                 default:
