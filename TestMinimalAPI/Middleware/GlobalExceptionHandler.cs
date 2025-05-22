@@ -31,6 +31,10 @@ public class GlobalExceptionHandler
                     context.Response.StatusCode = (int)e.StatusCode;
                     message = e.Message;
                     break;
+                default:
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    message = $"Internal Error: {error.Message}";
+                    break;
             }
 
             await context.Response.WriteAsync(message);

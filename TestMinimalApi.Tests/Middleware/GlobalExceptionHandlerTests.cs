@@ -54,4 +54,19 @@ public class GlobalExceptionHandlerTests
         Assert.Equal((int)HttpStatusCode.Conflict, _context.Response.StatusCode);
         Assert.Equal(message, response);
     }
+
+    [Fact]
+    public async Task Invoke_ShouldReturnInternalServerErrorByDefault()
+    {
+        var message = "Internal Error!";
+        RequestDelegate request = (HttpContext _) => throw new Exception(message);
+        var handler = new GlobalExceptionHandler(request);
+
+        await handler.Invoke(_context);
+
+        _context.Response.Body.Seek(0, SeekOrigin.Begin);
+        var response = await new StreamReader(_context.Response.Body).ReadToEndAsync();
+        Assert.Equal((int)HttpStatusCode.InternalServerError, _context.Response.StatusCode);
+        Assert.Equal($"Internal Error: {message}", response);
+    }
 }
