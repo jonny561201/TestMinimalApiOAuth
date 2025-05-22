@@ -1,6 +1,6 @@
 using System.Net;
 using TestMinimalAPI.Config;
-using TestMinimalAPI.Test.Services;
+using TestMinimalAPI.Services.Services;
 
 namespace TestMinimalAPI.Controllers;
 
