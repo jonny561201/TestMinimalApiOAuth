@@ -18,6 +18,12 @@ public static class WebApplicationExtensions
             .WithName("Get Test by Id")
             .WithDescription("Getting a test by the test id")
             .WithOpenApi()
+            .Produces((int)HttpStatusCode.OK);
+
+        application.MapGet("/test/auth", () => Results.Ok())
+            .WithName("Test OAuth")
+            .WithDescription("Test that the OAuth integration works with Auth0")
+            .WithOpenApi()
             .RequireAuthorization(AuthPolicies.TestUser)
             .Produces((int)HttpStatusCode.OK);
 
