@@ -30,6 +30,12 @@ public static class WebApplicationExtensions
             .WithDescription("Get But with Dependency Injection")
             .WithOpenApi()
             .Produces((int)HttpStatusCode.OK);
+
+        application.MapGet("/test/exception", new Func<object>(() => throw new BadHttpRequestException("duh")))
+            .WithName("Get Global Exception")
+            .WithDescription("Get Method to test if the global error handler is working as expected")
+            .WithOpenApi()
+            .Produces((int)HttpStatusCode.OK);
         
         return application;
     }
