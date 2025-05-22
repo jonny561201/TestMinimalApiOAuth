@@ -1,4 +1,4 @@
-namespace TestMinimalAPI.Test.Services;
+namespace TestMinimalAPI.Services.Services;
 
 interface ITestService
 {
