@@ -4,7 +4,7 @@ namespace TestMinimalAPI.Config;
 
 public static class SpaConfiguration
 {
-    public static WebApplication ConfigSpa(this WebApplication app)
+    public static WebApplication ConfigureSpa(this WebApplication app)
     {
 
         app.UseDeveloperExceptionPage()

@@ -21,7 +21,7 @@ if (settings.Environment is "dev" or "local")
 }
 
 app.UseCors("AllowAllOrigins");
-app.ConfigSpa();
+app.ConfigureSpa();
 app.UseMiddleware<GlobalExceptionHandler>();
 app.UseAuthentication();
 app.UseAuthorization();
