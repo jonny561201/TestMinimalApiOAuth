@@ -10,14 +10,23 @@ public static class ServiceCollectionExtensions
     {
         service.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
         {
-            var tokenParams = new TokenValidationParameters { NameClaimType = ClaimTypes.NameIdentifier };
+            var tokenParams = new TokenValidationParameters
+            {
+                NameClaimType = ClaimTypes.NameIdentifier,
+                ValidateIssuer = true,
+                ValidIssuer = settings.OAuth.Issuer,
+                ValidateLifetime = true,
+                RoleClaimType = AuthClaims.Roles,
+                ValidateAudience = true,
+                ValidAudience = settings.OAuth.Audience
+            };
             
             opt.Authority = $"https://{settings.OAuth.Domain}/";
             opt.Audience = settings.OAuth.Audience;
             opt.TokenValidationParameters = tokenParams;
         });
         
-        service.AddAuthorization(opt => opt.AddPolicy(AuthPolicies.TestUser, policy => policy.RequireClaim(AuthClaims.Roles, "Test")));
+        service.AddAuthorization(opt => opt.AddPolicy(AuthPolicies.TestUser, policy => policy.RequireRole("Test")));
         
         return service;
     }

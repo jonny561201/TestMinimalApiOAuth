@@ -10,4 +10,5 @@ public record OAuth
 {
     public string Audience { get; init; }
     public string Domain { get; init;  }
+    public string Issuer { get; init; }
 }
