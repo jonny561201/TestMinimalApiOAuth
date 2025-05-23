@@ -6,24 +6,23 @@ public static class SpaConfiguration
 {
     public static WebApplication ConfigureSpa(this WebApplication app)
     {
-
-        app.UseDeveloperExceptionPage()
-            .UseStaticFiles()
-            .UseRouting();
-        
         var staticFilesPath = Path.Combine(app.Environment.ContentRootPath, "ClientApp", "dist");
 
-        app.UseDefaultFiles(new DefaultFilesOptions
+        var defaultOptions = new DefaultFilesOptions
         {
             FileProvider = new PhysicalFileProvider(staticFilesPath),
             RequestPath = ""
-        });
-
-        app.UseStaticFiles(new StaticFileOptions
+        };
+        var fileOptions = new StaticFileOptions
         {
             FileProvider = new PhysicalFileProvider(staticFilesPath),
             RequestPath = ""
-        });
+        };
+        
+        app.UseDeveloperExceptionPage()
+            .UseRouting()
+            .UseDefaultFiles(defaultOptions)
+            .UseStaticFiles(fileOptions);
         
         return app;
     }

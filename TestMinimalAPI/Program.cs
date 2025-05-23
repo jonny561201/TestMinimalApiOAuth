@@ -6,9 +6,9 @@ using TestMinimalAPI.Services.Services;
 var builder = WebApplication.CreateBuilder(args);
 var settings = builder.Configuration.Get<AppSettings>();
 
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ITestService, TestService>();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureAuth(settings);
 builder.Services.ConfigureCors();
 
