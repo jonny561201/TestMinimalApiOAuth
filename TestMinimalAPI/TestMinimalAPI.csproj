@@ -4,6 +4,13 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+
+<!--        added for SPA-->
+        <SpaRoot>ClientApp\</SpaRoot>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+        <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+        <BuildServerSideRenderer>false</BuildServerSideRenderer>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,4 +19,34 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ClientApp\src\assets\" />
+    </ItemGroup>
+
+    
+    <!--    Added for SPA-->
+    <Target Name="BuildClientApp" AfterTargets="Build">
+        <Exec Command="npm install" WorkingDirectory="$(SpaRoot)" />
+        <Exec Command="npm run build" WorkingDirectory="$(SpaRoot)" />
+    </Target>
+
+    <Target Name="CopyClientDistToOutput" AfterTargets="BuildClientApp">
+        <ItemGroup>
+            <ClientDistFiles Include="$(SpaRoot)dist\**\*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(ClientDistFiles)"
+              DestinationFolder="$(OutDir)ClientApp\dist\%(RecursiveDir)"
+              SkipUnchangedFiles="true" />
+    </Target>
+
+    <Target Name="IncludeClientDistInPublish" AfterTargets="Publish">
+        <ItemGroup>
+            <DistFiles Include="$(SpaRoot)dist\**\*" />
+            <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')"
+                                   Exclude="@(ResolvedFileToPublish)">
+                <RelativePath>%(DistFiles.Identity)</RelativePath>
+                <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            </ResolvedFileToPublish>
+        </ItemGroup>
+    </Target>
 </Project>
