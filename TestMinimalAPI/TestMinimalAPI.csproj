@@ -8,7 +8,6 @@
 <!--        added for SPA-->
         <SpaRoot>ClientApp\</SpaRoot>
         <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-        <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
         <BuildServerSideRenderer>false</BuildServerSideRenderer>
         <PreserveCompilationContext>true</PreserveCompilationContext>
     </PropertyGroup>
