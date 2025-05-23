@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ITestService, TestService>();
 builder.Services.ConfigureAuth(settings);
+builder.Services.ConfigureCors();
 
 var app = builder.Build();
 
@@ -19,6 +20,8 @@ if (settings.Environment is "dev" or "local")
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowAllOrigins");
+app.ConfigSpa();
 app.UseMiddleware<GlobalExceptionHandler>();
 app.UseAuthentication();
 app.UseAuthorization();
