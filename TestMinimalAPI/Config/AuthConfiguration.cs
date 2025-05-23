@@ -6,9 +6,9 @@ namespace TestMinimalAPI.Config;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection ConfigureAuth(this IServiceCollection collection, AppSettings settings)
+    public static IServiceCollection ConfigureAuth(this IServiceCollection service, AppSettings settings)
     {
-        collection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+        service.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
         {
             var tokenParams = new TokenValidationParameters { NameClaimType = ClaimTypes.NameIdentifier };
             
@@ -17,8 +17,8 @@ public static class ServiceCollectionExtensions
             opt.TokenValidationParameters = tokenParams;
         });
         
-        collection.AddAuthorization(opt => opt.AddPolicy(AuthPolicies.TestUser, policy => policy.RequireClaim(AuthClaims.Roles, "Test")));
+        service.AddAuthorization(opt => opt.AddPolicy(AuthPolicies.TestUser, policy => policy.RequireClaim(AuthClaims.Roles, "Test")));
         
-        return collection;
+        return service;
     }
 }
