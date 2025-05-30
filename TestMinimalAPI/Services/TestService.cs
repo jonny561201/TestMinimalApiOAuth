@@ -1,6 +1,7 @@
 using System.Net;
 using TestMinimalAPI.Data;
 using TestMinimalAPI.Data.Config;
+using TestMinimalAPI.Data.Models;
 
 namespace TestMinimalAPI.Services;
 

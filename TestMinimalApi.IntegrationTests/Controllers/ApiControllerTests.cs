@@ -3,8 +3,8 @@ using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using TestMinimalAPI.Data;
 using TestMinimalAPI.Data.Config;
+using TestMinimalAPI.Data.Models;
 using TestMinimalApi.IntegrationTests.Config;
 
 namespace TestMinimalApi.IntegrationTests.Controllers;
@@ -13,7 +13,7 @@ public class ApiControllerTests
 {
     private readonly WebApplicationFactory<Program> _factory;
     private readonly HttpClient _client;
-    private PersonDbContext _dbContext;
+    private readonly PersonDbContext _dbContext;
 
     public ApiControllerTests()
     {
