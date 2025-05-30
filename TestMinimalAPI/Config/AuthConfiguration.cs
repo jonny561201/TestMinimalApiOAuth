@@ -21,7 +21,7 @@ public static class ServiceCollectionExtensions
                 ValidAudience = settings.OAuth.Audience
             };
             
-            opt.Authority = $"https://{settings.OAuth.Domain}/";
+            opt.Authority = settings.OAuth.Issuer;
             opt.Audience = settings.OAuth.Audience;
             opt.TokenValidationParameters = tokenParams;
         });
