@@ -29,3 +29,9 @@ app.UseHttpsRedirection();
 app.RegisterEndpoints();
 
 app.Run();
+
+
+public partial class Program();
+//CQRS
+//CSP Headers
+//Auth0 on React
