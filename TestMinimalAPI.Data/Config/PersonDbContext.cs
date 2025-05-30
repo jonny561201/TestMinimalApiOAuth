@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TestMinimalAPI.Data.Models;
 
 namespace TestMinimalAPI.Data.Config;
 

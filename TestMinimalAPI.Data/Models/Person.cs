@@ -1,4 +1,4 @@
-﻿namespace TestMinimalAPI.Data;
+﻿namespace TestMinimalAPI.Data.Models;
 
 public record Person
 {
