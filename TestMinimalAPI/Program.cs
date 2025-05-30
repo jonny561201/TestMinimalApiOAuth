@@ -1,7 +1,9 @@
 using TestMinimalAPI.Config;
 using TestMinimalAPI.Controllers;
+using TestMinimalAPI.Data;
+using TestMinimalAPI.Data.Config;
 using TestMinimalAPI.Middleware;
-using TestMinimalAPI.Services.Services;
+using TestMinimalAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var settings = builder.Configuration.Get<AppSettings>();
@@ -11,6 +13,7 @@ builder.Services.AddTransient<ITestService, TestService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureAuth(settings);
 builder.Services.ConfigureCors();
+builder.Services.AddPersonDbContext();
 
 var app = builder.Build();
 
