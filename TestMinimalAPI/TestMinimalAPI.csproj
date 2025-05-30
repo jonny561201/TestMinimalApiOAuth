@@ -22,6 +22,10 @@
       <Folder Include="ClientApp\src\assets\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TestMinimalAPI.Data\TestMinimalAPI.Data.csproj" />
+    </ItemGroup>
+
     
     <!--    Added for SPA-->
     <Target Name="BuildClientApp" AfterTargets="Build">
