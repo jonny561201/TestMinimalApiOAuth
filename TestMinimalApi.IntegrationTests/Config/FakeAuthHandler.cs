@@ -20,7 +20,7 @@ public class FakeAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions
         var claims = new[]
         {
             new Claim(ClaimTypes.Name, "TestUser"),
-            new Claim(AuthClaims.Roles, "Test"),
+            new Claim(AuthClaims.Roles, AuthRoles.Test),
         };
 
         var identity = new ClaimsIdentity(claims, SchemeName, ClaimTypes.Name, AuthClaims.Roles);

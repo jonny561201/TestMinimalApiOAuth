@@ -26,7 +26,7 @@ public static class ServiceCollectionExtensions
             opt.TokenValidationParameters = tokenParams;
         });
         
-        service.AddAuthorization(opt => opt.AddPolicy(AuthPolicies.TestUser, policy => policy.RequireRole("Test")));
+        service.AddAuthorization(opt => opt.AddPolicy(AuthPolicies.TestUser, policy => policy.RequireRole(AuthRoles.Test)));
         
         return service;
     }

@@ -11,9 +11,9 @@ public class AuthWebApplicationFactory : WebApplicationFactory<Program>
     {
         builder.ConfigureServices(services =>
         {
-            services.AddAuthentication(FakeAuthHandler.SchemeName)
-                .AddScheme<AuthenticationSchemeOptions, FakeAuthHandler>(
-                    FakeAuthHandler.SchemeName, opt => { });
+            services
+                .AddAuthentication(FakeAuthHandler.SchemeName)
+                .AddScheme<AuthenticationSchemeOptions, FakeAuthHandler>(FakeAuthHandler.SchemeName, opt => { });
 
             services.PostConfigure<AuthenticationOptions>(options =>
             {
