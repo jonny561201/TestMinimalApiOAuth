@@ -42,6 +42,12 @@ public static class WebApplicationExtensions
             .WithDescription("Get Method to test if the global error handler is working as expected")
             .WithOpenApi()
             .Produces((int)HttpStatusCode.OK);
+
+        application.MapGet("/test/person/{id:guid}", (ITestService service, Guid id) => service.GetPerson(id))
+            .WithName("Get Db Record")
+            .WithDescription("Get record from Db for integration Testing")
+            .WithOpenApi()
+            .Produces((int)HttpStatusCode.OK);
         
         return application;
     }
