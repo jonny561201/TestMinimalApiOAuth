@@ -43,7 +43,7 @@ public static class WebApplicationExtensions
             .WithOpenApi()
             .Produces((int)HttpStatusCode.OK);
 
-        application.MapGet("/test/person/{id:guid}", async (ITestService service, Guid id) => await service.GetPerson(id))
+        application.MapGet("/test/person/{id:guid}", async (ITestService service, Guid id) => await service.GetPersonAsync(id))
             .WithName("Get Db Record")
             .WithDescription("Get record from Db for integration Testing")
             .WithOpenApi()

@@ -8,7 +8,7 @@ namespace TestMinimalAPI.Services;
 interface ITestService
 {
     string GetResponseText();
-    Task<Person> GetPerson(Guid id);
+    Task<Person> GetPersonAsync(Guid id);
 }
 
 public class TestService : ITestService
@@ -25,7 +25,7 @@ public class TestService : ITestService
         return "Success Test";
     }
 
-    public async Task<Person> GetPerson(Guid id)
+    public async Task<Person> GetPersonAsync(Guid id)
     {
         var person = await _context.People.FindAsync(id);
 
