@@ -44,8 +44,12 @@ public static class ServiceCollectionExtensions
 
         if (customClaim == null) return Task.CompletedTask;
         
-        var claim = JsonSerializer.Deserialize<CustomClaim>(customClaim.Value);
-        claimsIdentity?.AddClaim(new Claim("salesArea", string.Join(",", claim?.Area ?? [])));
+        var area = JsonSerializer.Deserialize<CustomClaim>(customClaim.Value)?.Area;
+        
+        foreach (var claim in area ?? [])
+        {
+            claimsIdentity?.AddClaim(new Claim("area", claim));
+        }
 
         return Task.CompletedTask;
     }
