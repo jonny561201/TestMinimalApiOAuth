@@ -42,12 +42,10 @@ public static class ServiceCollectionExtensions
         var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
         var customClaim = claimsIdentity?.FindFirst("custom-claim");
 
-        if (customClaim != null)
-        {
-            var claim = JsonSerializer.Deserialize<CustomClaim>(customClaim.Value);
-            
-            claimsIdentity?.AddClaim(new Claim("salesArea", string.Join(",", claim?.Area ?? [])));
-        }
+        if (customClaim == null) return Task.CompletedTask;
+        
+        var claim = JsonSerializer.Deserialize<CustomClaim>(customClaim.Value);
+        claimsIdentity?.AddClaim(new Claim("salesArea", string.Join(",", claim?.Area ?? [])));
 
         return Task.CompletedTask;
     }
