@@ -3,3 +3,4 @@
 */bin
 
 *.sln.DotSettings.user
+*.DS_Store
