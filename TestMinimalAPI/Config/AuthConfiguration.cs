@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -24,10 +25,37 @@ public static class ServiceCollectionExtensions
             opt.Authority = settings.OAuth.Issuer;
             opt.Audience = settings.OAuth.Audience;
             opt.TokenValidationParameters = tokenParams;
+
+            opt.Events = new JwtBearerEvents
+            {
+                OnTokenValidated = context => ParseCustomClaim(context)
+            };
         });
         
-        service.AddAuthorization(opt => opt.AddPolicy(AuthPolicies.TestUser, policy => policy.RequireRole(AuthRoles.Test)));
+        service.AddAuthorizationBuilder().AddPolicy(AuthPolicies.TestUser, policy => policy.RequireRole(AuthRoles.Test));
         
         return service;
     }
+
+    private static Task ParseCustomClaim(TokenValidatedContext context)
+    {
+        var claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
+        var customClaim = claimsIdentity?.FindFirst("custom-claim");
+
+        if (customClaim != null)
+        {
+            var claim = JsonSerializer.Deserialize<CustomClaim>(customClaim.Value);
+            
+            claimsIdentity?.AddClaim(new Claim("salesArea", string.Join(",", claim?.Area ?? [])));
+        }
+
+        return Task.CompletedTask;
+    }
+}
+
+
+
+public record CustomClaim
+{
+    public List<string> Area { get; init; }
 }
